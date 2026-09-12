@@ -347,23 +347,43 @@ window.addEventListener("scroll", () => {
 
 /* ================= CONTACT FORM ================= */
 
-const contactForm = document.getElementById("contactForm");
+const contactForm =
+    document.getElementById("contactForm");
 
-if (contactForm) {
-    contactForm.addEventListener("submit", function (event) {
+contactForm.addEventListener(
+    "submit",
+    function(event) {
+
         event.preventDefault();
 
-        const name = contactForm.querySelector('input[type="text"]').value.trim();
-        const email = contactForm.querySelector('input[type="email"]').value.trim();
-        const subject = contactForm.querySelectorAll('input[type="text"]')[1].value.trim();
-        const message = contactForm.querySelector("textarea").value.trim();
+        const button =
+            contactForm.querySelector("button");
 
-        const mailSubject = encodeURIComponent(subject || `Portfolio enquiry from ${name}`);
-        const mailBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+        const originalText =
+            button.innerHTML;
 
-        window.location.href = `mailto:muhammadanassiddiq14@gmail.com?subject=${mailSubject}&body=${mailBody}`;
-    });
-}
+        button.innerHTML = `
+            <i class="fa-solid fa-check"></i>
+            Message Ready
+        `;
+
+        button.style.background =
+            "#b8e62f";
+
+        setTimeout(() => {
+
+            button.innerHTML =
+                originalText;
+
+            button.style.background =
+                "";
+
+            contactForm.reset();
+
+        }, 2500);
+
+    }
+);
 
 
 /* ================= CURRENT YEAR ================= */
@@ -422,13 +442,3 @@ window.addEventListener("load", () => {
     document.body.classList.add("loaded");
 
 });
-
-/* ================= HEADER SCROLL ================= */
-
-const header = document.querySelector(".header");
-
-window.addEventListener("scroll", () => {
-    if (header) {
-        header.classList.toggle("scrolled", window.scrollY > 20);
-    }
-}, { passive: true });
